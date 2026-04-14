@@ -23,11 +23,7 @@
         <div class="col-4">
             <div class="card bg bg-success bg-opacity-50">
                 <div class="card-body d-flex bg pb-0 justify-content-start">
-                    {% if contexto.c >= 0 %}
-                    <h1 class="card-title fs-5 d-inline-flex">Ingresos: <p class="ms-2 text-success">${{contexto.c}}</p></h1>
-                    {% elif contexto.c < 0 %}
-                    <h1 class="card-title fs-5 d-inline-flex">Ingresos: <p class="ms-2 text-danger"> ${{contexto.c}}</p></h1>
-                    {% endif %}
+                    <h1 class="card-title fs-5 d-inline-flex">Ingresos: <p class="ms-2 text-success">${{contexto.montoIng}}</p></h1>
                 </div>
                 <div class="container d-flex pt-0 justify-content-around">
                     <button class="mb-3 btn bg bg-success" type="button"><a class="text-light fs-6" style="text-decoration: none;" href="{% url 'regIng' %}">Ver Todos los ingresos</a></button>
@@ -37,12 +33,56 @@
                 <div class="col-4">
             <div class="card bg bg-danger bg-opacity-50">
                 <div class="card-body d-flex bg pb-0 justify-content-start">
-                    <h1 class="card-title fs-5 d-inline-flex">Gastos: <p class="ms-2 text-danger">${{contexto.c}}</p></h1>
+                    <h1 class="card-title fs-5 d-inline-flex">Gastos: <p class="ms-2 text-danger">${{contexto.montoGas}}</p></h1>
                 </div>
                 <div class="container d-flex pt-0 justify-content-around">
                     <button class="mb-3 btn bg bg-danger" type="button"><a class="text-light fs-6" style="text-decoration: none;" href="{% url 'regGas' %}">Ver Todos los gastos</a></button>
                 </div>
             </div>          
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-5">Grafico de barras ingresos mensuales</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-5">Estadisticas de inersiones (llamando a API)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-5">Grafico de torta: ingresos por categoria</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-5">Grafico de torta: gastos por categoria</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body border-bottom">
+                    <p class="fs-3">Registro de derechos</p>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body border-bottom">
+                    <p class="fs-3">Registro de obligaciones</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

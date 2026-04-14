@@ -28,8 +28,10 @@ def dashboard(request):
     balanceFinal = (balAct - balPas)
 
     contexto = {
-        'a':dataIng,
-        'b':dataGas,
+        'dataIng':dataIng,
+        'montoIng':balAct,
+        'dataGas':dataGas,
+        'montoGas':balPas,
         'c':balanceFinal,
     }
 
@@ -68,9 +70,6 @@ def regIng(request):
 
     return render(request, 'regIng.html', {'contexto':contexto})
 
-# Para registar nuevo ingreso dentro del registro de ingresos
-def formRegIng(request):
-    return render (request, 'formRegIng.html')
 
 # Gastos
 def regGas(request):
@@ -83,8 +82,8 @@ def regGas(request):
         balPas = balPas + i
 
     contexto = {
-        'b':dataGas,
-
+        'a':dataGas,
+        'b':balPas,
     }
 
     return render(request, 'regGas.html', {'contexto':contexto})
@@ -127,25 +126,49 @@ def eliminarGas(request, id):
 # Logica para crear un nuevo registro (objeto) de ingreso (instancia la clase (modelo) ingresos)
 def nuevoIngreso(request):
     detalle = request.POST.get('ingreso-Detalle', False)
+    categoria = request.POST.get('ingCategoria', False)
     monto = request.POST.get('ingMonto', False)
 
-    nuevo_ingreso = ingresos.objects.create(detalle=detalle, monto=monto)
+    nuevo_ingreso = ingresos.objects.create(detalle=detalle, monto=monto, categoria=categoria)
     return redirect('/')
 
 # Logica para crear un nuevo ingreso DENTRO de la pagina donde estan todos los registros de ingreso
 def nuevoRegIngreso(request):
     detalle = request.POST.get('ingreso-Detalle', False)
+    categoria = request.POST.get('ingCategoria', False)
     monto = request.POST.get('ingMonto', False)
 
-    nuevo_ingreso = ingresos.objects.create(detalle=detalle, monto=monto)
-    return redirect('registroIngreso/')
+    nuevo_ingreso = ingresos.objects.create(detalle=detalle, monto=monto, categoria=categoria)
+    return redirect('regIng')
+
+def nuevoRegGasto(request):
+    detalle = request.POST.get('ingreso-Detalle', False)
+    categoria = request.POST.get('ingCategoria', False)
+    monto = request.POST.get('ingMonto', False)
+
+    nuevo_gasto = gastos.objects.create(detalle=detalle, monto=monto, categoria=categoria)
+    return redirect('regGas')
+
+# Logica para eliminar un registro DENTRO de la pagina donde estan todos los ingresos
+def eliminarRegIng(request, id):
+    registro = ingresos.objects.get(id=id)
+    registro.delete()
+
+    return redirect('regIng')
+
+def eliminarRegGas(request, id):
+    registro = gastos.objects.get(id=id)
+    registro.delete()
+
+    return redirect('regGas')
 
 # Logica para crear un nuevo registro de gasto (instancia a gastos)
 def nuevoGasto(request):
     detalle = request.POST.get('gasto-Detalle', False)
+    categoria = request.POST.get('gasCategoria', False)
     monto = request.POST.get('gasMonto', False)
 
-    nuevo_ingreso = gastos.objects.create(detalle=detalle, monto=monto)
+    nuevo_gasto = gastos.objects.create(detalle=detalle, monto=monto, categoria=categoria)
     return redirect('/')
 # =====================================================
 

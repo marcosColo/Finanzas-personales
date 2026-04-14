@@ -4,6 +4,7 @@ from django.db import models
 class ingresos(models.Model):
     fecha = models.DateField(auto_now_add=True)
     detalle = models.CharField(max_length=200)
+    categoria = models.CharField(max_length=50, default=0)
     monto = models.FloatField(default=0)
 
     def __str__(self):
@@ -12,6 +13,7 @@ class ingresos(models.Model):
 class gastos(models.Model):
     fecha = models.DateField(auto_now_add=True)
     detalle = models.CharField(max_length=200)
+    categoria = models.CharField(max_length=50)
     monto = models.FloatField(default=0)
 
     def __str__(self):

@@ -5,35 +5,55 @@
 {% block body %}
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-4">
             <div class="card bg bg-success bg-opacity-50">
                 <div class="card-body d-flex bg pb-0 justify-content-start">
-                    <h1 class="card-title fs-5 d-inline-flex">Ingresos: <p class="ms-2 text-success">${{contexto.b}}</p></h1>
+                    <h1 class="card-title fs-5 d-inline-flex">Ingresos totales: <p class="ms-2 text-success">${{contexto.b}}</p></h1>
                 </div>
                 <div class="container d-flex pt-0 justify-content-around">
-                    <button class="mb-3 btn bg bg-success" type="button"><a class="text-light fs-6" style="text-decoration: none;" href="{% url 'formRegIng' %}">Nuevo Ingreso</a></button>
                     <button class="mb-3 btn bg bg-primary" type="button"><a class="text-light fs-6" style="text-decoration: none;" href="{% url 'inicio' %}">Ir a pagina inicio</a></button>
                 </div>
-            </div>          
+            </div>
+            <div class="mt-4 card">
+            <div class="card-body">
+            <p class="fs-5">Nuevo ingreso</p>
+            <form action="/nuevoRegIngreso/" method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="ingreso-Detalle" placeholder="Detalle" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="ingCategoria" placeholder="Categoria" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="ingMonto" placeholder="Monto" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+            </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <p class="display-1">Stats</p>
+                </div>
+            </div>        
         </div>
-    </div>
-    <div class="row">
-<div class="col-6">
-    <h1 class="fs-5">Ingresos</h1>
-        {% for i in contexto.a %}
-    
-    <div class="card bg bg-success bg-opacity-25">
-        <div class="card-body d-inline-flex">
-            <button type="submit" style="size: 5px;" class="btn bg bg-danger"><a class="text-light" style="size: 2rem; text-decoration: none;" href="eliminar/{{i.id}}">X</a></button>
-            <p class="ms-3 border-bottom border-dark border-end pe-1 me-2">{{i.detalle}}</p>
-            <p class="">Fecha: {{i.fecha}}</p>
-            <p class="">Monto: ${{i.monto}}</p>
+        <div class="col-8">
+            <h1 class="fs-3">Todos los ingresos</h1>
+                {% for i in contexto.a %}
+            
+            <div class="card bg bg-success bg-opacity-25 mb-1">
+                <div class="card-body d-inline-flex">
+                    <button type="submit" style="size: 5px;" class="btn bg bg-danger"><a class="text-light" style="size: 2rem; text-decoration: none;" href="eliminarRegIng/{{i.id}}">X</a></button>
+                    <p class="ms-3 border-bottom border-dark border-end pe-1 me-2">{{i.detalle}}</p>
+                    <p class="">Fecha: {{i.fecha}}</p>
+                    <p class="">Monto: ${{i.monto}}</p>
+                </div>
+            </div>
+                {% endfor %}
         </div>
-    </div>
-
-    {% endfor %}
-</div>
     </div>
 </div>
 
